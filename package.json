@@ -1,0 +1,14 @@
+{
+  "name": "picowebjs",
+  "version": "0.0.1",
+  "description": "A wrapper around koa web framework",
+  "main": "index.js",
+  "author": "Faisal Iqbal",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "@koa/router": "^10.0.0",
+    "koa-static": "^5.0.0"
+  }
+}
