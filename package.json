@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Faisal Iqbal",
   "license": "ISC",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/sfi2k7/picowebjs.git"
+  },
   "dependencies": {
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
