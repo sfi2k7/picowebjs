@@ -5,7 +5,7 @@ let Static = require("koa-static");
 
 const logger = async (ctx, next) => {
     await next();
-    console.log(ctx.url, ctx.method, `${ctx.state.took()}ms`);
+    console.log(ctx.url, ctx.method,`${new Date().toLocaleTimeString()}`, `${ctx.state.took()}ms`);
 }
 
 class WebServer {
@@ -71,6 +71,7 @@ class WebServer {
     }
 
     start(port = 5050, enableLogging = false, middlewares = [async (ctx, next) => { await next() }]) {
+        
         if (enableLogging == true) {
             middlewares.push(logger);
         }
