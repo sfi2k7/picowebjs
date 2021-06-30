@@ -2,10 +2,11 @@ let Koa = require("koa");
 let koaBodyparser = require("koa-bodyparser");
 let Router = require("@koa/router");
 let Static = require("koa-static");
+let send = require("koa-send");
 
 const logger = async (ctx, next) => {
     await next();
-    console.log(ctx.url, ctx.method,`${new Date().toLocaleTimeString()}`, `${ctx.state.took()}ms`);
+    console.log(ctx.url, ctx.method, `${new Date().toLocaleTimeString()}`, `${ctx.state.took()}ms`);
 }
 
 class WebServer {
@@ -21,6 +22,14 @@ class WebServer {
 
             ctx.json = (obj) => {
                 ctx.body = JSON.stringify(obj)
+            }
+
+            ctx.string = (str) => {
+                ctx.body = str;
+            }
+
+            ctx.view = (fileName) => {
+                send(ctx, fileName);
             }
 
             await next();
@@ -71,7 +80,7 @@ class WebServer {
     }
 
     start(port = 5050, enableLogging = false, middlewares = [async (ctx, next) => { await next() }]) {
-        
+
         if (enableLogging == true) {
             middlewares.push(logger);
         }
