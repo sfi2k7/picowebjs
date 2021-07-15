@@ -2,20 +2,20 @@ A simple wrapper around Koa web framework.
 **Not ready for Production**
 
 ```javascript
-    let webServer = require("picoweb");
+            let webServer = require("picoweb");
 
-    webServer.viewRoot(__dirname);
-    webServer.static(__dirname);
+            webServer.viewRoot(__dirname);
+            webServer.static(__dirname);
 
-    const home = async (ctx) => {
-        await ctx.view("index.html");
-    }
+            const home = async (ctx) => {
+                await ctx.view("index.html");
+            }
 
-    webServer.routes([
-        { path: "/html", method: "GET", handler: home }
-    ]);
+            webServer.routes([
+                { path: "/html", method: "GET", handler: home }
+            ]);
 
-    webServer.stopOnInt();
-    webServer.start(7861, true);
+            webServer.stopOnInt();
+            webServer.start(7861, true);
 
 ```
