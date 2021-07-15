@@ -1,6 +1,7 @@
 A simple wrapper around Koa web framework.
 **Not ready for Production**
-```
+
+```javascript
 let webServer = require("picoweb");
 
 webServer.viewRoot(__dirname);
@@ -16,4 +17,5 @@ webServer.routes([
 
 webServer.stopOnInt();
 webServer.start(7861, true);
+
 ```
