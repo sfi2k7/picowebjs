@@ -2,7 +2,8 @@ let Koa = require("koa");
 let koaBodyparser = require("koa-bodyparser");
 let Router = require("@koa/router");
 let Static = require("koa-static");
-let send = require("koa-send");
+const fs = require("fs/promises")
+const path = require("path");
 
 const logger = async (ctx, next) => {
     await next();
@@ -12,7 +13,9 @@ const logger = async (ctx, next) => {
 class WebServer {
     constructor() {
         this.app = new Koa();
+
         this.router = new Router();
+        this.viewrootpath = "";
 
         this.app.use(async (ctx, next) => {
             ctx.state.start = new Date();
@@ -28,9 +31,22 @@ class WebServer {
                 ctx.body = str;
             }
 
-            ctx.view = (fileName) => {
-                send(ctx, fileName);
+            ctx.html = async (fileName) => {
+                try {
+                    let fullfilename = path.join(this.viewrootpath, fileName);
+                    ctx.type = "text/html; charset=UTF-8";
+                    let filebody = await fs.readFile(fullfilename, { encoding: "utf8" });
+                    ctx.body =filebody
+                } catch (error) {
+                    console.log(error)
+                    ctx.status = 404;
+                }
             }
+
+            ctx.view = async (filename)=>{
+                await ctx.html(filename);    
+            }
+
 
             await next();
         })
@@ -50,6 +66,10 @@ class WebServer {
 
     static(root, options) {
         this.app.use(Static(root || this.root, options));
+    }
+
+    viewRoot(root) {
+        this.viewrootpath = root;
     }
 
     _routeSingle(single) {
