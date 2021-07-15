@@ -1,6 +1,6 @@
 {
   "name": "picowebjs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A wrapper around koa web framework",
   "main": "index.js",
   "author": "Faisal Iqbal",
