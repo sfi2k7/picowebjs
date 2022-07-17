@@ -4,7 +4,7 @@ webServer.viewRoot(__dirname);
 webServer.static(__dirname);
 
 const home = async (ctx) => {
-    await ctx.view("index.html");
+    await ctx.view("public/index.html");
 }
 
 webServer.routes([

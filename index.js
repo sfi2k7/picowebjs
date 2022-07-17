@@ -36,17 +36,17 @@ class WebServer {
                     let fullfilename = path.join(this.viewrootpath, fileName);
                     ctx.type = "text/html; charset=UTF-8";
                     let filebody = await fs.readFile(fullfilename, { encoding: "utf8" });
-                    ctx.body =filebody
+                    ctx.body = filebody
                 } catch (error) {
                     console.log(error)
                     ctx.status = 404;
                 }
             }
 
-            ctx.view = async (filename)=>{
-                await ctx.html(filename);    
+            ctx.view = async (filename) => {
+                console.log('rendering View');
+                await ctx.html(filename);
             }
-
 
             await next();
         })
@@ -72,7 +72,7 @@ class WebServer {
         this.viewrootpath = root;
     }
 
-    _routeSingle(single) {
+    _routeSingle(single = { path, handler, method }) {
         if (typeof single.path === "undefined") {
             return;
         }
@@ -124,7 +124,6 @@ class WebServer {
         this._server.close()
     }
 }
-
 
 let webServer = new WebServer();
 module.exports = webServer;
